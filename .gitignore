@@ -23,3 +23,14 @@ terraform.tfvars
 scripts/rotten_tomatoes_critic_reviews.csv
 scripts/cleaned_reviews.csv
 scripts/rotten_tomatoes_movies.csv
+
+
+.terraform/
+scripts/rotten_tomatoes_critic_reviews.csv
+scripts/cleaned_reviews.csv
+scripts/rotten_tomatoes_movies.csv
+scripts/rotten_tomatoes_critic_reviews.csv
+scripts/cleaned_reviews.csv
+scripts/rotten_tomatoes_movies.csv
+.terraform/
+>>>>>>> ai-powered-text-summarizer
