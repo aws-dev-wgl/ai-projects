@@ -1,106 +1,121 @@
-AI-Powered Text Summarizer
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Text Summarizer</title>
+</head>
+<body>
 
-Overview
+<h1>AI-Powered Text Summarizer</h1>
 
-This AI-powered text summarizer is a scalable and modular solution designed to automate the extraction of key insights from large datasets of text-based reviews. Built on AWS infrastructure, it leverages AI/ML capabilities through AWS Bedrock while maintaining an efficient and cost-effective deployment. This solution integrates multiple AWS services to process, summarize, and store movie critic reviews, making it applicable across various domains where text summarization is required.
+<h2>Overview</h2>
+<p>
+    This AI-powered text summarizer is a scalable and modular solution designed to automate the extraction of key insights 
+    from large datasets of text-based reviews. Built on AWS infrastructure, it leverages AI/ML capabilities through AWS Bedrock 
+    while maintaining an efficient and cost-effective deployment. This solution integrates multiple AWS services to process, 
+    summarize, and store movie critic reviews, making it applicable across various domains where text summarization is required.
+</p>
 
-Business Impact
+<h2>Business Impact</h2>
+<ul>
+    <li><strong>Improved Decision-Making:</strong> Organizations can quickly analyze textual data for trends and insights.</li>
+    <li><strong>Operational Efficiency:</strong> Eliminates manual summarization efforts, reducing resource allocation.</li>
+    <li><strong>Scalability:</strong> Designed to handle high-volume datasets with serverless AWS infrastructure.</li>
+    <li><strong>Versatility:</strong> Can be applied to various industries, including entertainment, finance, healthcare, and e-commerce.</li>
+</ul>
 
-Organizations working with large volumes of textual data—such as customer feedback, reviews, or support logs—often struggle with extracting meaningful insights efficiently. This AI solution automates the summarization process, reducing manual effort, accelerating decision-making, and ensuring consistency. Key benefits include:
+<h2>Core Features</h2>
+<ul>
+    <li><strong>AWS Bedrock Integration:</strong> Utilizes Amazon Titan models to generate AI-powered summaries.</li>
+    <li><strong>Serverless Architecture:</strong> Deploys AWS Lambda for event-driven processing.</li>
+    <li><strong>Storage and Retrieval:</strong> Uses Amazon S3 for data storage and retrieval.</li>
+    <li><strong>API Gateway:</strong> Provides a RESTful interface to trigger and retrieve summarization tasks.</li>
+    <li><strong>Security & IAM:</strong> Implements least-privilege access policies to control resource access.</li>
+</ul>
 
-Improved Decision-Making: Organizations can quickly analyze textual data for trends and insights.
+<h2>AWS Services Utilized</h2>
+<ul>
+    <li><strong>AWS Bedrock:</strong> AI model inference for text summarization.</li>
+    <li><strong>AWS Lambda:</strong> Serverless function execution.</li>
+    <li><strong>Amazon S3:</strong> Storage for input data and summarized outputs.</li>
+    <li><strong>Amazon API Gateway:</strong> API layer for triggering summarization requests.</li>
+    <li><strong>AWS IAM:</strong> Role-based access control for security enforcement.</li>
+</ul>
 
-Operational Efficiency: Eliminates manual summarization efforts, reducing resource allocation.
+<h2>Deployment Instructions</h2>
 
-Scalability: Designed to handle high-volume datasets with serverless AWS infrastructure.
+<h3>1. Set Up AWS Environment</h3>
+<p>Ensure you have the necessary AWS credentials configured with IAM permissions to deploy infrastructure using Terraform.</p>
 
-Versatility: Can be applied to various industries, including entertainment, finance, healthcare, and e-commerce.
+<h3>2. Clone Repository</h3>
+<pre>
+<code>
+git clone &lt;repository-url&gt;
+cd ai-powered-text-summarizer
+</code>
+</pre>
 
-Core Features
-
-AWS Bedrock Integration: Utilizes Amazon Titan models to generate AI-powered summaries.
-
-Serverless Architecture: Deploys AWS Lambda for event-driven processing.
-
-Storage and Retrieval: Uses Amazon S3 for data storage and retrieval.
-
-API Gateway: Provides a RESTful interface to trigger and retrieve summarization tasks.
-
-Security & IAM: Implements least-privilege access policies to control resource access.
-
-AWS Services Utilized
-
-AWS Bedrock – AI model inference for text summarization.
-
-AWS Lambda – Serverless function execution.
-
-Amazon S3 – Storage for input data and summarized outputs.
-
-Amazon API Gateway – API layer for triggering summarization requests.
-
-AWS IAM – Role-based access control for security enforcement.
-
-Deployment Instructions
-
-1. Set Up AWS Environment
-
-Ensure you have the necessary AWS credentials configured with IAM permissions to deploy infrastructure using Terraform.
-
-2. Clone Repository
-
- git clone <repository-url>
- cd ai-powered-text-summarizer
-
-3. Initialize and Deploy Infrastructure
-
+<h3>3. Initialize and Deploy Infrastructure</h3>
+<pre>
+<code>
 terraform init
 terraform apply --auto-approve
+</code>
+</pre>
+<p>This step provisions all required AWS resources, including Lambda, API Gateway, and S3.</p>
 
-This step provisions all required AWS resources, including Lambda, API Gateway, and S3.
-
-4. Upload Data to S3
-
-Prepare and upload a CSV file containing movie reviews.
-
+<h3>4. Upload Data to S3</h3>
+<pre>
+<code>
 aws s3 cp cleaned_reviews.csv s3://my-terraform-state-aws-ai-dev-wgl/reviews/cleaned_reviews.csv
+</code>
+</pre>
 
-5. Trigger AI Summarization
-
-Invoke the API Gateway endpoint to generate AI-powered summaries.
-
-curl -X POST "https://<api-gateway-url>/prod/summarize" \
+<h3>5. Trigger AI Summarization</h3>
+<pre>
+<code>
+curl -X POST "https://&lt;api-gateway-url&gt;/prod/summarize" \
      -H "Content-Type: application/json" \
      -d '{"bucket_name": "my-terraform-state-aws-ai-dev-wgl", "file_key": "reviews/cleaned_reviews.csv"}'
+</code>
+</pre>
 
-6. Retrieve Summarized Reviews
-
-Fetch the summarized content stored in S3.
-
+<h3>6. Retrieve Summarized Reviews</h3>
+<pre>
+<code>
 aws s3 cp s3://my-terraform-state-aws-ai-dev-wgl/reviews/summaries/summarized_reviews_cleaned_reviews.json .
+</code>
+</pre>
 
-7. Validate AI Summaries
-
-Inspect the output JSON file to confirm that reviews have been successfully summarized.
-
+<h3>7. Validate AI Summaries</h3>
+<pre>
+<code>
 cat summarized_reviews_cleaned_reviews.json | jq
+</code>
+</pre>
 
-Architecture Diagram
-
+<h2>Architecture Diagram</h2>
+<pre>
 [User] → [API Gateway] → [Lambda] → [AWS Bedrock] → [S3]
                            ↓
                         [S3 Output Storage]
+</pre>
 
-Future Enhancements
+<h2>Future Enhancements</h2>
+<ul>
+    <li><strong>DynamoDB Integration:</strong> Store and index summarized reviews for quick retrieval.</li>
+    <li><strong>EventBridge Automation:</strong> Trigger summarization upon new file uploads.</li>
+    <li><strong>Performance Optimization:</strong> Batch processing to reduce API calls and improve throughput.</li>
+    <li><strong>Custom AI Models:</strong> Fine-tune Bedrock models based on domain-specific data.</li>
+</ul>
 
-DynamoDB Integration: Store and index summarized reviews for quick retrieval.
+<h2>Conclusion</h2>
+<p>
+    This project is an example of how AI-powered solutions can be seamlessly integrated into cloud environments to automate 
+    and enhance decision-making. The architecture ensures flexibility and extensibility, making it a foundational component 
+    for organizations looking to incorporate AI-driven text analytics into their workflow.
+</p>
 
-EventBridge Automation: Trigger summarization upon new file uploads.
-
-Performance Optimization: Batch processing to reduce API calls and improve throughput.
-
-Custom AI Models: Fine-tune Bedrock models based on domain-specific data.
-
-Conclusion
-
-This project is an example of how AI-powered solutions can be seamlessly integrated into cloud environments to automate and enhance decision-making. The architecture ensures flexibility and extensibility, making it a foundational component for organizations looking to incorporate AI-driven text analytics into their workflow.
-
+</body>
+</html>
