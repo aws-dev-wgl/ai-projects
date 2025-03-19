@@ -73,7 +73,7 @@ resource "aws_lambda_function" "software_scan" {
   role            = aws_iam_role.lambda_role.arn
   handler         = "software_scan.lambda_handler"
   s3_bucket       = aws_s3_bucket.lambda_bucket.bucket
-  s3_key          = "lambda.zip"
+  s3_key          = "software_scan.zip"
   timeout         = 60
 
   environment {
