@@ -35,7 +35,7 @@ EOF
 
 resource "aws_iam_policy" "lambda_policy" {
   name        = "rosie_lambda_policy"
-  description = "Policy for Lambda to access DynamoDB, CloudWatch, and SSM"
+  description = "Policy for Lambda to access SSM, DynamoDB, and logs"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -64,13 +64,15 @@ resource "aws_iam_policy" "lambda_policy" {
         Action = [
           "ssm:DescribeInstanceInformation",
           "ssm:SendCommand",
-          "ssm:GetCommandInvocation"
+          "ssm:GetCommandInvocation",
+          "ec2:DescribeInstances"
         ]
         Resource = "*"
       }
     ]
   })
 }
+
 
 
 resource "aws_iam_policy_attachment" "lambda_dynamodb" {
