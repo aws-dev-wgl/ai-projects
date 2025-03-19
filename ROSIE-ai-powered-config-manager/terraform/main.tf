@@ -33,6 +33,46 @@ resource "aws_iam_role" "lambda_role" {
 EOF
 }
 
+resource "aws_iam_policy" "lambda_policy" {
+  name        = "rosie_lambda_policy"
+  description = "Policy for Lambda to access DynamoDB, CloudWatch, and SSM"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "dynamodb:PutItem",
+          "dynamodb:GetItem",
+          "dynamodb:Scan",
+          "dynamodb:Query"
+        ]
+        Resource = aws_dynamodb_table.software_inventory.arn
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Resource = "arn:aws:logs:*:*:*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "ssm:DescribeInstanceInformation",
+          "ssm:SendCommand",
+          "ssm:GetCommandInvocation"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+
 resource "aws_iam_policy_attachment" "lambda_dynamodb" {
   name       = "lambda_dynamodb_policy"
   roles      = [aws_iam_role.lambda_role.name]
@@ -45,7 +85,7 @@ resource "aws_lambda_function" "software_scan" {
   role            = aws_iam_role.lambda_role.arn
   handler         = "software_scan.lambda_handler"
   s3_bucket       = aws_s3_bucket.lambda_bucket.bucket
-  s3_key          = "lambda.zip"
+  s3_key          = "software_scan.zip"
   timeout         = 60
 
   environment {
