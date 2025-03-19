@@ -44,7 +44,8 @@ resource "aws_lambda_function" "software_scan" {
   runtime         = "python3.9"
   role            = aws_iam_role.lambda_role.arn
   handler         = "software_scan.lambda_handler"
-  filename        = "lambda.zip"
+  s3_bucket       = aws_s3_bucket.lambda_bucket.bucket
+  s3_key          = "lambda.zip"
   timeout         = 60
 
   environment {
@@ -53,6 +54,7 @@ resource "aws_lambda_function" "software_scan" {
     }
   }
 }
+
 
 resource "aws_api_gateway_rest_api" "rosie_api" {
   name        = "RosieAPI"
