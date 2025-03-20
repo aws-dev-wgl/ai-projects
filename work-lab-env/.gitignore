@@ -1,0 +1,39 @@
+# Ignore Terraform state files
+*.tfstate
+*.tfstate.backup
+*.tfstate.*
+
+# Ignore Terraform lock file
+.terraform.lock.hcl
+
+# Ignore Terraform working directory
+.terraform/
+
+# Ignore provider caches
+crash.log
+override.tf
+override.tf.json
+.terraformrc
+terraform.tfvars
+
+# Ignore local build outputs
+*.zip
+*.log
+.terraform/
+scripts/rotten_tomatoes_critic_reviews.csv
+scripts/cleaned_reviews.csv
+scripts/rotten_tomatoes_movies.csv
+C:\Users\Willi\projects\git-filter-repo
+C:\Users\Willi\projects\ai-projects\work-lab-env\terraform.tfvars
+.terraform/
+scripts/rotten_tomatoes_critic_reviews.csv
+scripts/cleaned_reviews.csv
+scripts/rotten_tomatoes_movies.csv
+scripts/rotten_tomatoes_critic_reviews.csv
+scripts/cleaned_reviews.csv
+scripts/rotten_tomatoes_movies.csv
+.terraform/
+C:\Users\Willi\projects\ai-projects\work-lab-env\lambda_package
+C:\Users\Willi\projects\ai-projects\work-lab-env\lambda_function.bk.zip
+C:\Users\Willi\projects\ai-projects\work-lab-env\response.json
+C:\Users\Willi\projects\ai-projects\work-lab-env\test_event.json
