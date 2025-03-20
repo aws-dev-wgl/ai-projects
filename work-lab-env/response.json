@@ -1,1 +1,1 @@
-{"errorMessage": "Unable to import module 'lambda_function': No module named 'requests'", "errorType": "Runtime.ImportModuleError", "requestId": "", "stackTrace": []}
+{"statusCode": 500, "body": "An error occurred (AccessDenied) when calling the GetObject operation: User: arn:aws:sts::573191494210:assumed-role/lambda_s3_github_role/s3_to_github_lambda is not authorized to perform: s3:ListBucket on resource: \"arn:aws:s3:::work-dev-lab-aws-dev-wgl\" because no identity-based policy allows the s3:ListBucket action"}

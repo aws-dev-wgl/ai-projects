@@ -1,0 +1,15 @@
+{
+    "Records": [
+      {
+        "s3": {
+          "bucket": {
+            "name": "work-dev-lab-aws-dev-wgl"
+          },
+          "object": {
+            "key": "uploaded_file.txt"
+          }
+        }
+      }
+    ]
+  }
+  

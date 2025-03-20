@@ -31,23 +31,32 @@ resource "aws_iam_policy" "lambda_policy" {
     Statement = [
       {
         Effect   = "Allow"
-        Action   = ["s3:GetObject"]
-        Resource = "${aws_s3_bucket.lambda_bucket.arn}/*"
+        Action   = ["s3:*"]
+        Resource = [
+          "arn:aws:s3:::work-dev-lab-aws-dev-wgl",      # Permission to ListBucket
+          "arn:aws:s3:::work-dev-lab-aws-dev-wgl/*"    # Permission to GetObject from any file in the bucket
+        ]
       },
       {
         Effect   = "Allow"
-        Action   = ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"]
+        Action   = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
         Resource = "arn:aws:logs:*:*:*"
       }
     ]
   })
 }
 
-# Attach IAM Policy to IAM Role
+# Attach IAM Policy to Lambda Role
 resource "aws_iam_role_policy_attachment" "lambda_attach" {
   policy_arn = aws_iam_policy.lambda_policy.arn
   role       = aws_iam_role.lambda_role.name
 }
+
+
 
 # Lambda Function with Environment Variables
 resource "aws_lambda_function" "s3_to_github_lambda" {
