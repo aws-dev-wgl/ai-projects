@@ -56,7 +56,7 @@ resource "aws_lambda_function" "s3_to_github_lambda" {
   handler       = "lambda_function.lambda_handler"
 
   role          = aws_iam_role.lambda_role.arn
-  filename      = "lambda.zip"  # Must be created before `terraform apply`
+  filename      = "lambda_function.zip"  # Must be created before `terraform apply`
   source_code_hash = filebase64sha256("lambda.zip")
 
   # Environment Variables for GitHub Credentials
