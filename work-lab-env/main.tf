@@ -2,9 +2,9 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# Create an S3 bucket
+# Create an S3 bucket#
 resource "aws_s3_bucket" "lambda_bucket" {
-  bucket = "work-dev-lab-aws-dev-wgl"
+  bucket = "work-dev-lab-aws-dev-wgl-lambda"
 }
 
 # IAM Role for Lambda
@@ -57,7 +57,7 @@ resource "aws_lambda_function" "s3_to_github_lambda" {
 
   role          = aws_iam_role.lambda_role.arn
   filename      = "lambda_function.zip"  # Must be created before `terraform apply`
-  source_code_hash = filebase64sha256("lambda.zip")
+  source_code_hash = filebase64sha256("lambda_function.zip")
 
   # Environment Variables for GitHub Credentials
   environment {
